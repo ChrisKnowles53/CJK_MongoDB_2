@@ -11,4 +11,4 @@ Next step - carry on learning 😀
 - Learn how add data
 - Learn how to patch data
 - Learn how to delete data
-- Make the front end look better (I'm focussed on the learning rather than presentation for now)
+- ✅Make the front end look better (I'm focussed on the learning rather than presentation for now) Had to prioritise this as it was driving me mad!

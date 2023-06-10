@@ -24,9 +24,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         {products.map((product) => (
-          <div key={product._id}>
+          <div key={product._id} className="card">
             <h2>{product.name}</h2>
-            <p>{product.price}</p>
+            <p>£{product.price}</p>
+            <p>{product.category}</p>
+            <img src={product.image} alt={product.name} />
           </div>
         ))}
       </header>
