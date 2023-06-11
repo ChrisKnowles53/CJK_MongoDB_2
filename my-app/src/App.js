@@ -5,6 +5,7 @@ import ProductForm from "./ProductForm/ProductForm";
 function App() {
   const [products, setProducts] = useState([]);
   const [editProduct, setEditProduct] = useState(null);
+  
 
   // This is the fetchProducts function. This is used to fetch the current list of products from your server
   const fetchProducts = () => {
@@ -65,6 +66,19 @@ function App() {
     }
   };
 
+  const deleteProduct = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Product deleted", data);
+        fetchProducts(); // refresh the list of products
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -76,6 +90,19 @@ function App() {
             <p>{product.category}</p>
             <img src={product.image} alt={product.name} />
             <button onClick={() => startEditing(product)}>Edit</button>
+            <button
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete this product?"
+                  )
+                ) {
+                  deleteProduct(product._id);
+                }
+              }}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </header>
