@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import ProductForm from "./ProductForm/ProductForm";
 
 function App() {
   // Use React's useState hook to create a state variable 'products' and a function to update it 'setProducts'.
@@ -20,15 +21,7 @@ function App() {
       .catch((error) => console.error("Error:", error));
   }, []); // The empty array means this effect will only run once when the component mounts
 
-  function addProduct() {
-    const product = {
-      name: "New Product",
-      price: 100,
-      category: "New Category",
-      image: "https://picsum.photos/200",
-      // Add other fields here
-    };
-
+  const addProduct = (product) => {
     fetch("http://localhost:5000/products", {
       method: "POST",
       headers: {
@@ -37,13 +30,17 @@ function App() {
       body: JSON.stringify(product),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        setProducts((prevProducts) => [...prevProducts, data]);
+      })
       .catch((error) => console.error("Error:", error));
-  }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={addProduct}>Add Product</button>
+        <ProductForm onSubmit={addProduct} />
         {products.map((product) => (
           <div key={product._id} className="card">
             <h2>{product.name}</h2>
