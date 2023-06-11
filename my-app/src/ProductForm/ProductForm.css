@@ -3,6 +3,9 @@ form {
   flex-direction: column;
   align-items: flex-start;
   gap: 1em;
+  max-width: 300px;
+  margin: 20px;
+  padding: 20px;
 }
 
 label {
@@ -17,12 +20,15 @@ input[type="number"],
 input[type="file"] {
   margin-top: 0.5em;
   min-width: 200px;
-  font-size: 1.3em;
+  font-size: 0.9em;
+  border-radius: 10px;
 }
 
 input[type="submit"] {
   margin-top: 1em;
-  align-self: center;
+  align-self: left;
   padding: 10px 20px; /* Adjust the size of the button */
-  font-size: 1.6em; /* Adjust the size of the text */
+  font-size: 1.3em; /* Adjust the size of the text */
+  cursor: pointer; /* Change cursor to a hand when hovered */
+  border-radius: 10px;
 }
