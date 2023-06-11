@@ -46,4 +46,22 @@ app.get("/products", async (req, res) => {
   }
 });
 
+//Define route to post a new product
+app.post('/products', async (req, res) => {
+ const product = new Product({
+     name: req.body.name,
+     price: req.body.price,
+     category: req.body.category,
+     image: req.body.image,
+     // Add other fields here to suit your document structure
+ });
+
+ try {
+     const newProduct = await product.save();
+     res.status(201).json(newProduct);
+ } catch (err) {
+     res.status(400).json({ message: err.message });
+ }
+});
+
 app.listen(5000, () => console.log("Server started on port 5000"));

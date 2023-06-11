@@ -20,9 +20,30 @@ function App() {
       .catch((error) => console.error("Error:", error));
   }, []); // The empty array means this effect will only run once when the component mounts
 
+  function addProduct() {
+    const product = {
+      name: "New Product",
+      price: 100,
+      category: "New Category",
+      image: "https://picsum.photos/200",
+      // Add other fields here
+    };
+
+    fetch("http://localhost:5000/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error:", error));
+  }
   return (
     <div className="App">
       <header className="App-header">
+        <button onClick={addProduct}>Add Product</button>
         {products.map((product) => (
           <div key={product._id} className="card">
             <h2>{product.name}</h2>
