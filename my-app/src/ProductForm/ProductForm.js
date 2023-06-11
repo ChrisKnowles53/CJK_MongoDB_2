@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import './ProductForm.css';
+import { useState, useEffect } from "react";
+import "./ProductForm.css";
 
-function ProductForm({ onSubmit }) {
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productCategory, setProductCategory] = useState('');
-  const [productImage, setProductImage] = useState('');
+function ProductForm({ onFormSubmit, product }) {
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productCategory, setProductCategory] = useState("");
+  const [productImage, setProductImage] = useState("");
+
+  // Update form fields when currentProduct changes
+  useEffect(() => {
+    if (product) {
+      setProductName(product.name);
+      setProductPrice(product.price);
+      setProductCategory(product.category);
+      setProductImage(product.image);
+    }
+  }, [product]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,12 +27,12 @@ function ProductForm({ onSubmit }) {
       image: productImage,
     };
 
-    onSubmit(product);  
+    onFormSubmit(product);
 
-    setProductName('');
-    setProductPrice('');
-    setProductCategory('');
-    setProductImage('');
+    setProductName("");
+    setProductPrice("");
+    setProductCategory("");
+    setProductImage("");
   };
 
   const handleImageUpload = (event) => {
@@ -40,21 +50,33 @@ function ProductForm({ onSubmit }) {
     <form onSubmit={handleSubmit}>
       <label>
         Name:
-        <input type="text" value={productName} onChange={e => setProductName(e.target.value)} />
+        <input
+          type="text"
+          value={productName}
+          onChange={(e) => setProductName(e.target.value)}
+        />
       </label>
       <label>
         Price:
-        <input type="number" value={productPrice} onChange={e => setProductPrice(e.target.value)} />
+        <input
+          type="number"
+          value={productPrice}
+          onChange={(e) => setProductPrice(e.target.value)}
+        />
       </label>
       <label>
         Category:
-        <input type="text" value={productCategory} onChange={e => setProductCategory(e.target.value)} />
+        <input
+          type="text"
+          value={productCategory}
+          onChange={(e) => setProductCategory(e.target.value)}
+        />
       </label>
       <label>
         Image:
         <input type="file" onChange={handleImageUpload} />
       </label>
-      <input type="submit" value="Add Product" />
+      <input type="submit" value={product ? "Update Product" : "Add Product"} />
     </form>
   );
 }

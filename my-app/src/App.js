@@ -3,23 +3,21 @@ import "./App.css";
 import ProductForm from "./ProductForm/ProductForm";
 
 function App() {
-  // Use React's useState hook to create a state variable 'products' and a function to update it 'setProducts'.
-  // Initialize 'products' state as an empty array.
   const [products, setProducts] = useState([]);
+  const [editProduct, setEditProduct] = useState(null);
 
-  // Use React's useEffect hook to perform side effects in your function components.
-  // Here it's used to fetch data from your API when the component mounts.
-  // The empty array [] at the end means this effect runs once when the component mounts, and not on subsequent updates.
-  useEffect(() => {
-    // Fetch data from the /products endpoint on your server
+  // This is the fetchProducts function. This is used to fetch the current list of products from your server
+  const fetchProducts = () => {
     fetch("http://localhost:5000/products")
-      // When the response is received, parse it as JSON
       .then((response) => response.json())
-      // After parsing the response, call setProducts with the received data to update your state
       .then((data) => setProducts(data))
-      // If an error occurs during any of the above steps, log it to the console
       .catch((error) => console.error("Error:", error));
-  }, []); // The empty array means this effect will only run once when the component mounts
+  };
+
+  // Call fetchProducts function once when the component mounts
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const addProduct = (product) => {
     fetch("http://localhost:5000/products", {
@@ -32,21 +30,52 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setProducts((prevProducts) => [...prevProducts, data]);
+        fetchProducts();
       })
       .catch((error) => console.error("Error:", error));
+  };
+
+  const startEditing = (product) => {
+    setEditProduct(product);
+  };
+
+  const updateProduct = (id, updatedProduct) => {
+    console.log(id);
+    fetch(`http://localhost:5000/products/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedProduct),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setEditProduct(null);
+        fetchProducts();
+        console.log("Product updated", data);
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const submitProduct = (product) => {
+    if (editProduct) {
+      updateProduct(editProduct._id, product);
+    } else {
+      addProduct(product);
+    }
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <ProductForm onSubmit={addProduct} />
+        <ProductForm onFormSubmit={submitProduct} product={editProduct} />
         {products.map((product) => (
           <div key={product._id} className="card">
             <h2>{product.name}</h2>
             <p>£{product.price}</p>
             <p>{product.category}</p>
             <img src={product.image} alt={product.name} />
+            <button onClick={() => startEditing(product)}>Edit</button>
           </div>
         ))}
       </header>

@@ -47,21 +47,48 @@ app.get("/products", async (req, res) => {
 });
 
 //Define route to post a new product
-app.post('/products', async (req, res) => {
- const product = new Product({
-     name: req.body.name,
-     price: req.body.price,
-     category: req.body.category,
-     image: req.body.image,
-     // Add other fields here to suit your document structure
- });
+app.post("/products", async (req, res) => {
+  const product = new Product({
+    name: req.body.name,
+    price: req.body.price,
+    category: req.body.category,
+    image: req.body.image,
+    // Add other fields here to suit your document structure
+  });
 
- try {
-     const newProduct = await product.save();
-     res.status(201).json(newProduct);
- } catch (err) {
-     res.status(400).json({ message: err.message });
- }
+  try {
+    const newProduct = await product.save();
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+//Define a method to update a product
+app.patch("/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (product == null) {
+      return res.status(404).json({ message: "Cannot find product" });
+    }
+
+    if (req.body.name != null) {
+      product.name = req.body.name;
+    }
+
+    if (req.body.price != null) {
+      product.price = req.body.price;
+    }
+
+    // repeat the above if-condition block for other fields (category, image, etc.)
+
+    const updatedProduct = await product.save();
+
+    res.json(updatedProduct);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
 });
 
 app.listen(5000, () => console.log("Server started on port 5000"));
