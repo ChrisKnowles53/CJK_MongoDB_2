@@ -91,15 +91,17 @@ app.patch("/products/:id", async (req, res) => {
   }
 });
 
+
 //Define a method to delete a product
 app.delete("/products/:id", async (req, res) => {
-  console.log("id:", req.params.id); // 1. Log the id
   try {
-    const result = await Product.deleteOne({ _id: req.params.id });
-    console.log("delete result:", result); // 2. Log the result
-    if (result.deletedCount === 0) {
+    const product = await Product.findById(req.params.id);
+
+    if (product == null) {
       return res.status(404).json({ message: "Cannot find product" });
     }
+
+    await product.remove();
 
     res.json({ message: "Product deleted" });
   } catch (err) {

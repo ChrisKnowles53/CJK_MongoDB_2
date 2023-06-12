@@ -1,6 +1,6 @@
 # CJK_MongoDB_2
 
-please read note at bottom if you want to use this code
+please read note at bottom if you want to use this code.
 
 Taking the time to teach myself how to connect a very basic REACT App which extracts data from a MongoDB. I've never used a noSQL database before and never created a backend server which the front end talks to using CORS.
 
@@ -11,12 +11,12 @@ Completing this I have learnt about NVM, CORS, Express, MongoDB, Mongoose, REACT
 Next step - carry on learning 😀
 
 - ✅Learn how add data
-- Learn how to patch data
-- Learn how to delete data
+- ✅Learn how to patch data
+- ✅Learn how to delete data
 - ✅Make the front end look better (I'm focussed on the learning rather than presentation for now) Had to prioritise this as it was driving me mad!
 
 NOTE:
-This code is set up yo work with my database which has doucments in a collection called products, that have this structure:
+This code is set up to work with my database which has doucments in a collection called products, that have this structure:
 
     {  
     "id": 1,  
