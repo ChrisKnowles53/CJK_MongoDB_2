@@ -89,8 +89,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <ProductForm onFormSubmit={submitProduct} product={editProduct} />
+      <div className="search-methods">
         <input
           type="text"
           placeholder="Search products"
@@ -108,6 +107,9 @@ function App() {
           <option value="Hat">Hat</option>
           {/* Add more options for each category you have */}
         </select>
+        </div>
+      <div className="card-display">
+        <ProductForm onFormSubmit={submitProduct} product={editProduct} />
         {filteredProducts.map((product) => (
           <div key={product._id} className="card">
             <h2>{product.name}</h2>
@@ -130,7 +132,7 @@ function App() {
             </button>
           </div>
         ))}
-      </header>
+      </div>
     </div>
   );
 }

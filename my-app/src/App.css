@@ -1,14 +1,19 @@
 /* General app styles */
 .App {
-  text-align: center;
   background-color: #282c34;
+  text-align: center;
   min-height: 100vh;
   color: white;
-  
+}
+
+.search-methods {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 30px;
 }
 
 /* Styles for the header */
-.App-header {
+.card-display {
   width: 80%;
   margin: auto;
   display: flex;
