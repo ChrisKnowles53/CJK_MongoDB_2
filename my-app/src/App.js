@@ -5,7 +5,8 @@ import ProductForm from "./ProductForm/ProductForm";
 function App() {
   const [products, setProducts] = useState([]);
   const [editProduct, setEditProduct] = useState(null);
-  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
 
   // This is the fetchProducts function. This is used to fetch the current list of products from your server
   const fetchProducts = () => {
@@ -79,11 +80,35 @@ function App() {
       .catch((error) => console.error("Error:", error));
   };
 
+  const filteredProducts = products.filter((product) => {
+    return (
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (category === "" || product.category === category)
+    );
+  });
+
   return (
     <div className="App">
       <header className="App-header">
         <ProductForm onFormSubmit={submitProduct} product={editProduct} />
-        {products.map((product) => (
+        <input
+          type="text"
+          placeholder="Search products"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">All categories</option>
+          <option value="Hoodie">Hoodie</option>
+          <option value="Sweater">Sweater</option>
+          <option value="T-Shirt">T-Shirt</option>
+          <option value="Mask">Mask</option>
+          <option value="Awesome">Awesome</option>
+          <option value="Jacket">Jacket</option>
+          <option value="Hat">Hat</option>
+          {/* Add more options for each category you have */}
+        </select>
+        {filteredProducts.map((product) => (
           <div key={product._id} className="card">
             <h2>{product.name}</h2>
             <p>£{product.price}</p>
