@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import ProductForm from "./ProductForm/ProductForm";
+import LoginPage from "./LoginPage/LoginPage";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -145,6 +146,7 @@ function App() {
             </button>
           </div>
         ))}
+        <LoginPage />
       </div>
     </div>
   );
