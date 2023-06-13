@@ -22,18 +22,31 @@ function App() {
   }, []);
 
   const addProduct = (product) => {
+    // The fetch function is used to send a request to a server. It returns a Promise that resolves to the Response to that request, whether it is successful or not.
+    // The first argument to fetch is the URL to which the request is being sent. In this case, the request is being sent to 'http://localhost:5000/products'.
     fetch("http://localhost:5000/products", {
+      // The method property of the options object being passed to fetch is set to 'POST'. This indicates that a POST request is being sent.
       method: "POST",
+
+      // The headers property of the options object is used to specify HTTP headers that will be included with the request. In this case, a Content-Type header is being set.
       headers: {
+        // The Content-Type header is set to 'application/json', indicating that the body of the request will contain JSON data.
         "Content-Type": "application/json",
       },
+
+      // The body property of the options object is used to specify the body of the request. In this case, the 'product' parameter of the function is being stringified into JSON and used as the body.
       body: JSON.stringify(product),
     })
+      // Another callback is registered with then. This callback will be passed the result of the previous callback (i.e., the parsed JSON from the response).
+      // It simply logs the data to the console and then calls the 'fetchProducts' function (not defined in the provided code).
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         fetchProducts();
       })
+
+      // The catch method is used to register a callback that will be executed if the Promise is rejected.
+      // This callback simply logs an error message to the console.
       .catch((error) => console.error("Error:", error));
   };
 
@@ -107,7 +120,7 @@ function App() {
           <option value="Hat">Hat</option>
           {/* Add more options for each category you have */}
         </select>
-        </div>
+      </div>
       <div className="card-display">
         <ProductForm onFormSubmit={submitProduct} product={editProduct} />
         {filteredProducts.map((product) => (
