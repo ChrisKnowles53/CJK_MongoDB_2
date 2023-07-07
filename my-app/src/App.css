@@ -51,3 +51,28 @@
     width: 80%;
   }
 }
+
+.search-bar {
+  width: 50%;
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-around;
+}
+
+.category-select {
+  width: 20%;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-around;
+
+  @media screen and (max-width: 768px) {
+    /* width: 20%; */
+    font-size: 20px;
+  }
+    
+  }

@@ -100,7 +100,26 @@ const Login = () => {
         onChange={onFormInputChange}
         style={{ marginBottom: "1rem" }}
       />
-      <Button variant="contained" color="primary" onClick={onSubmit}>
+      <Button variant="contained" color="primary" onClick={onSubmit}
+      	sx={{
+							// backgroundColor: '#5aaaa6',
+							border: '1px solid #47474782',
+							borderRadius: '25px',
+							display: 'flex',
+							justifyContent: 'center',
+							padding: '0.5em 3em 0.5em 3em',
+							color: 'white',
+							marginTop: '1vw',
+							width: '4vw',
+							textTransform: 'capitalize',
+							// textTransformFont: 'josefin sans',
+							textTransformWeight: 'bold',
+							textTransformSize: '15px',
+							maxWidth: '60px',
+							maxHeight: '30px',
+							fontWeight: 'bold',
+              boxShadow: '0px 3px 5px 0px rgba(0,0,0,0.75)',
+						}}>
         Login
       </Button>
       <p>
