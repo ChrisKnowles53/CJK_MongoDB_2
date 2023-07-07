@@ -4,7 +4,9 @@ import { UserContext } from '../Contexts/user.context';
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import ProductForm from "../ProductForm/ProductForm";
- 
+
+const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export default function Home() {
  const { logOutUser } = useContext(UserContext);
  
@@ -30,7 +32,7 @@ export default function Home() {
 
    // This is the fetchProducts function. This is used to fetch the current list of products from your server
    const fetchProducts = () => {
-     fetch("http://localhost:5000/products")
+     fetch(`${REACT_APP_SERVER_URL}`)
        .then((response) => response.json())
        .then((data) => setProducts(data))
        .catch((error) => console.error("Error:", error));
@@ -44,7 +46,7 @@ export default function Home() {
    const addProduct = (product) => {
      // The fetch function is used to send a request to a server. It returns a Promise that resolves to the Response to that request, whether it is successful or not.
      // The first argument to fetch is the URL to which the request is being sent. In this case, the request is being sent to 'http://localhost:5000/products'.
-     fetch("http://localhost:5000/products", {
+     fetch(`${REACT_APP_SERVER_URL}`, {
        // The method property of the options object being passed to fetch is set to 'POST'. This indicates that a POST request is being sent.
        method: "POST",
 
@@ -76,7 +78,7 @@ export default function Home() {
 
    const updateProduct = (id, updatedProduct) => {
      console.log(id);
-     fetch(`http://localhost:5000/products/${id}`, {
+     fetch(`${REACT_APP_SERVER_URL}/${id}`, {
        method: "PATCH",
        headers: {
          "Content-Type": "application/json",
@@ -102,7 +104,7 @@ export default function Home() {
 
    const deleteProduct = (id) => {
      console.log(id);
-     fetch(`http://localhost:5000/products/${id}`, {
+     fetch(`${REACT_APP_SERVER_URL}/${id}`, {
        method: "DELETE",
      })
        .then((response) => response.json())
@@ -175,3 +177,15 @@ export default function Home() {
    </>
  )
 }
+
+//emmet - Kevin Powell
+
+//.test
+// select>option*5
+// button.testButton
+
+{/* <div className="test">
+<button className="testButton"></button>
+
+</div>
+button.testButton */}
