@@ -127,7 +127,7 @@ export default function Home() {
       <div className="App">
         <div className="search-methods">
           <Button
-          className="logout-button"
+            className="logout-button"
             variant="contained"
             onClick={logOut}
             sx={{
@@ -154,14 +154,14 @@ export default function Home() {
             Logout
           </Button>
           <input
-          className="search-bar"
+            className="search-bar"
             type="text"
             placeholder="Search products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <select
-          className="category-select"
+            className="category-select"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -206,16 +206,3 @@ export default function Home() {
   );
 }
 
-//emmet - Kevin Powell
-
-//.test
-// select>option*5
-// button.testButton
-
-{
-  /* <div className="test">
-<button className="testButton"></button>
-
-</div>
-button.testButton */
-}
