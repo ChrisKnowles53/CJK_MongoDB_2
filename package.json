@@ -8,6 +8,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
-    "realm-web": "^1.5.1"
+    "realm-web": "^1.5.1",
+    "rollup": "^2.79.2"
   }
 }
