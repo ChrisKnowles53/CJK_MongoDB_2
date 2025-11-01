@@ -15,12 +15,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "mongoose": "^7.2.3",
-    "path-to-regexp": "^0.1.11",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "path-to-regexp": "^0.1.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
