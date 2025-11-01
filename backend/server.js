@@ -6,12 +6,38 @@ const Product = require("./productModel");
 
 // Initializes a new Express application
 const app = express();
+const authRoutes = require("./routes/auth");
+const path = require("path");
+
+const allowed = [
+  "http://localhost:3000",
+  "https://ChrisKnowles53.github.io",
+  "https://ChrisKnowles53.github.io/CJK_MongoDB_2", // your repo base path
+  "https://mongo-db2-2.onrender.com", // your Render API origin
+];
+
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "../my-app/public/images"))
+);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Use CORS middleware to handle Cross Origin Resource Sharing
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin || allowed.some((a) => origin.startsWith(a)))
+        return cb(null, true);
+      cb(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Parses incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(express.json());
+app.use("/auth", authRoutes);
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.DB_URI, {
@@ -27,6 +53,11 @@ db.on("error", (error) => console.error("Connection error: ", error));
 
 // Bind connection to open event (to get notification of successful connection)
 db.once("open", () => console.log("Connected to MongoDB"));
+
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
 
 // Define route to get all products
 app.get("/products", async (req, res) => {
@@ -115,4 +146,5 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-app.listen(5001, () => console.log("Server started on port 5001"));
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
