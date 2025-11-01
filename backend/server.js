@@ -3,11 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./productModel");
+const authRoutes = require("./routes/auth");
+const path = require("path");
 
 // Initializes a new Express application
 const app = express();
-const authRoutes = require("./routes/auth");
-const path = require("path");
 
 const allowed = [
   "http://localhost:3000",
