@@ -12,6 +12,7 @@ const path = require("path");
 const allowed = [
   "http://localhost:3000",
   "https://ChrisKnowles53.github.io",
+  "https://https://cjk-mongodb2.netlify.app",
   "https://ChrisKnowles53.github.io/CJK_MongoDB_2", // your repo base path
   "https://mongo-db2-2.onrender.com", // your Render API origin
 ];
